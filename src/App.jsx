@@ -1,5 +1,7 @@
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import ShopLayout from "./Components/ShopLayout";
 import Layout from "./Components/Layout";
 
 import Home from "./Pages/Home";
@@ -8,8 +10,7 @@ import Checkout from "./Pages/Checkout";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 
-import AdminDashboard from "./Pages/admin/Dashboard";
-
+import AdminDashboard from "./Pages/Admin/Dashboard";
 import AdminProducts from "./Pages/admin/Products";
 import AdminOrders from "./Pages/admin/Orders";
 import AdminCustomers from "./Pages/admin/Customers";
@@ -21,13 +22,19 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
+
+        {/* Customer website */}
+        <Route element={<ShopLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+        </Route>
+
+        {/* Authentication */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Admin: sidebar + top bar layout, Pages render in <Outlet /> */}
+        {/* Admin dashboard */}
         <Route path="/admin" element={<Layout />}>
           <Route index element={<AdminDashboard />} />
           <Route path="products" element={<AdminProducts />} />
@@ -37,6 +44,7 @@ export default function App() {
           <Route path="analytics" element={<AdminAnalytics />} />
           <Route path="settings" element={<AdminSettings />} />
         </Route>
+
       </Routes>
     </BrowserRouter>
   );
