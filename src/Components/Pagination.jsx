@@ -1,12 +1,10 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-// Slice a list down to the items on one page.
 export function paginate(items, page, pageSize) {
   const start = (page - 1) * pageSize;
   return items.slice(start, start + pageSize);
 }
 
-// Page numbers to show, with "..." for gaps, e.g. [1, "...", 4, 5, 6, "...", 10]
 function getPages(page, totalPages) {
   if (totalPages <= 7) return Array.from({ length: totalPages }, (_, i) => i + 1);
   const pages = [1];
