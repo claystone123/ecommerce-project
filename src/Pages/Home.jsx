@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState,useContext } from "react";
 import { useSearchParams } from "react-router-dom";
 import ProductCard from "../Components/ProductCard";
 import Pagination, { paginate } from "../Components/Pagination";
 import products from "../data/products";
+import { CartContext } from "../Context/CartContext";
 
 function ProductSection({ title, items, pageSize, resetKey, onAddToCart }) {
   const [page, setPage] = useState(1);
@@ -30,6 +31,7 @@ function ProductSection({ title, items, pageSize, resetKey, onAddToCart }) {
 }
 
 export default function Home() {
+  const { addToCart } = useContext(CartContext);
   // Search text comes from the URL (?q=shoes). Ann's SearchBar only needs to set "q".
   const [searchParams] = useSearchParams();
   const query = (searchParams.get("q") ?? "").trim().toLowerCase();
@@ -41,8 +43,9 @@ export default function Home() {
   const bestProducts = useMemo(() => matches.filter((p) => p.rating >= 4.5), [matches]);
 
   // TODO Ann: replace with addToCart from CartContext
-  const handleAddToCart = (product) => console.log("Add to cart:", product.name);
-
+const handleAddToCart = (product) => {
+  addToCart(product);
+};
   return (
     <div className="space-y-12">
       <ProductSection

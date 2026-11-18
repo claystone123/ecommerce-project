@@ -1,19 +1,51 @@
-# React + Vite
+# React Shopping Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Project Description
+This is an online shopping website built using React and Vite. It allows customers to browse products, search for items, add products to their cart, and complete checkout.
 
-Currently, two official plugins are available:
+## Technologies Used
+- React
+- Vite
+- JavaScript
+- Tailwind CSS
+- React Router
+- LocalStorage
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Installation Instructions
 
-## React Compiler
+1. Clone or download the project.
+2. Open the project folder in VS Code.
+3. Open the terminal.
+4. Install dependencies:
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+```bash
+npm install
+```
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+5. Start the development server:
 
-## Expanding the Oxlint configuration
+```bash
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+6. Open the local URL provided in the terminal in your browser.
+
+## Main Features
+- Product listing
+- Product search
+- Shopping cart
+- Add and remove products
+- Update product quantities
+- Automatic cart total calculation
+- Checkout form with validation
+- Order confirmation
+- Saving cart and order information using LocalStorage
+
+## Team Contributions
+
+- **Ann:** Cart functionality, CartItem, Cart page, Checkout, SearchBar, CartBadge and project documentation.
+- **Peter:** Home page and product filtering.
+- **Warren:** Contributions through pull requests and assigned project tasks.
+
+## Project Goal
+To develop a functional online shopping website that provides customers with a simple shopping and checkout experience.
