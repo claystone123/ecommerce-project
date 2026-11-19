@@ -1,7 +1,106 @@
-function Login() {
-    return (
-        <h1>Login</h1>
-    );
-};
 
-export default Login;
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+
+export default function Login() {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [error, setError] = useState("");
+
+  function handleChange(e) {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setError("");
+
+    try {
+      const loggedInUser = login(form.email, form.password);
+
+      if (loggedInUser.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-slate-100 px-4 py-10">
+      <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
+        <h1 className="mb-2 text-3xl font-bold text-slate-900">
+          Welcome Back
+        </h1>
+
+        <p className="mb-6 text-slate-500">
+          Sign in to your ShopHub account.
+        </p>
+
+        {error && (
+          <p className="mb-4 rounded-md bg-red-100 p-3 text-sm text-red-700">
+            {error}
+          </p>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="mb-1 block font-medium">
+              Email Address
+            </label>
+            <input
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              placeholder="Enter your email"
+              className="w-full rounded-md border p-3"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="mb-1 block font-medium">
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              placeholder="Enter your password"
+              className="w-full rounded-md border p-3"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full rounded-md bg-[#12332F] p-3 font-semibold text-white hover:bg-[#0d2724]"
+          >
+            Sign In
+          </button>
+        </form>
+
+        <p className="mt-6 text-center text-sm text-slate-600">
+          Don't have an account?{" "}
+          <Link to="/register" className="font-semibold text-[#12332F]">
+            Create account
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+}

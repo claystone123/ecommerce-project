@@ -1,4 +1,6 @@
+
 import { Menu, Search, Bell, ShoppingBag } from "lucide-react";
+import UserMenu from "./UserMenu";
 
 export default function TopBar({ title, onMenuClick }) {
   return (
@@ -11,10 +13,15 @@ export default function TopBar({ title, onMenuClick }) {
         <Menu size={20} />
       </button>
 
-      <h1 className="hidden text-lg font-semibold text-slate-900 sm:block">{title}</h1>
+      <h1 className="hidden text-lg font-semibold text-slate-900 sm:block">
+        {title}
+      </h1>
 
       <div className="relative ml-auto w-full max-w-sm">
-        <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+        <Search
+          size={16}
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+        />
         <input
           type="search"
           placeholder="Search products or orders"
@@ -22,17 +29,22 @@ export default function TopBar({ title, onMenuClick }) {
         />
       </div>
 
-      <button className="relative rounded-md p-2 text-slate-600 hover:bg-slate-100" aria-label="Notifications">
+      <button
+        className="relative rounded-md p-2 text-slate-600 hover:bg-slate-100"
+        aria-label="Notifications"
+      >
         <Bell size={20} />
         <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[#E9A23B]" />
       </button>
-      <button className="rounded-md p-2 text-slate-600 hover:bg-slate-100" aria-label="Cart">
+
+      <button
+        className="rounded-md p-2 text-slate-600 hover:bg-slate-100"
+        aria-label="Cart"
+      >
         <ShoppingBag size={20} />
       </button>
 
-      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#12332F] text-sm font-medium text-white">
-        AD
-      </div>
+      <UserMenu />
     </header>
   );
 }

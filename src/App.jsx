@@ -1,5 +1,6 @@
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
 
 import ShopLayout from "./Components/ShopLayout";
 import Layout from "./Components/Layout";
@@ -18,11 +19,24 @@ import AdminDiscounts from "./Pages/admin/Discounts";
 import AdminAnalytics from "./Pages/admin/Analytics";
 import AdminSettings from "./Pages/admin/Settings";
 
+function ProtectedAdmin({ children }) {
+  const { user } = useAuth();
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (user.role !== "admin") {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-
         {/* Customer website */}
         <Route element={<ShopLayout />}>
           <Route path="/" element={<Home />} />
@@ -34,8 +48,15 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Admin dashboard */}
-        <Route path="/admin" element={<Layout />}>
+        {/* Protected admin dashboard */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedAdmin>
+              <Layout />
+            </ProtectedAdmin>
+          }
+        >
           <Route index element={<AdminDashboard />} />
           <Route path="products" element={<AdminProducts />} />
           <Route path="orders" element={<AdminOrders />} />
@@ -44,7 +65,6 @@ export default function App() {
           <Route path="analytics" element={<AdminAnalytics />} />
           <Route path="settings" element={<AdminSettings />} />
         </Route>
-
       </Routes>
     </BrowserRouter>
   );
